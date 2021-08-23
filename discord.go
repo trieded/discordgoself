@@ -12,7 +12,13 @@ package discordgo
 import (
 	"errors"
 	"net/http"
+	"strings"
 	"time"
+)
+
+var (
+	errEmptyToken = errors.New("empty auth token")
+	errBotToken   = errors.New("bot tokens are disallowed")
 )
 
 // New creates a new Discord session and will automate some startup
@@ -23,7 +29,9 @@ func New(token string) (s *Session, err error) {
 
 	//return empty session
 	if token == "" {
-		return nil, errors.New("empty auth token")
+		return nil, errEmptyToken
+	} else if strings.HasPrefix(token, "Bot ") {
+		return nil, errBotToken
 	}
 
 	// Create an empty Session interface.

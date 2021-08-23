@@ -794,23 +794,42 @@ func (m *Member) Mention() string {
 	return "<@!" + m.User.ID + ">"
 }
 
-// A Settings stores data for a specific users Discord client settings.
-type Settings struct {
-	RenderEmbeds           bool               `json:"render_embeds"`
-	InlineEmbedMedia       bool               `json:"inline_embed_media"`
-	InlineAttachmentMedia  bool               `json:"inline_attachment_media"`
-	EnableTTSCommand       bool               `json:"enable_tts_command"`
-	MessageDisplayCompact  bool               `json:"message_display_compact"`
-	ShowCurrentGame        bool               `json:"show_current_game"`
-	ConvertEmoticons       bool               `json:"convert_emoticons"`
-	Locale                 string             `json:"locale"`
-	Theme                  string             `json:"theme"`
-	GuildPositions         []string           `json:"guild_positions"`
-	RestrictedGuilds       []string           `json:"restricted_guilds"`
-	FriendSourceFlags      *FriendSourceFlags `json:"friend_source_flags"`
-	Status                 Status             `json:"status"`
-	DetectPlatformAccounts bool               `json:"detect_platform_accounts"`
-	DeveloperMode          bool               `json:"developer_mode"`
+// UserSettings stores client settings.
+type UserSettings struct {
+	ViewNsfwGuilds                bool          `json:"view_nsfw_guilds"`
+	TimezoneOffset                int           `json:"timezone_offset"`
+	Theme                         string        `json:"theme"`
+	StreamNotificationsEnabled    bool          `json:"stream_notifications_enabled"`
+	Status                        string        `json:"status"`
+	ShowCurrentGame               bool          `json:"show_current_game"`
+	RestrictedGuilds              []interface{} `json:"restricted_guilds"`
+	RenderReactions               bool          `json:"render_reactions"`
+	RenderEmbeds                  bool          `json:"render_embeds"`
+	NativePhoneIntegrationEnabled bool          `json:"native_phone_integration_enabled"`
+	MessageDisplayCompact         bool          `json:"message_display_compact"`
+	Locale                        string        `json:"locale"`
+	InlineEmbedMedia              bool          `json:"inline_embed_media"`
+	InlineAttachmentMedia         bool          `json:"inline_attachment_media"`
+	GuildPositions                []interface{} `json:"guild_positions"`
+	GuildFolders                  []interface{} `json:"guild_folders"`
+	GifAutoPlay                   bool          `json:"gif_auto_play"`
+	FriendSourceFlags             struct {
+		All bool `json:"all"`
+	} `json:"friend_source_flags"`
+	FriendDiscoveryFlags        int         `json:"friend_discovery_flags"`
+	ExplicitContentFilter       int         `json:"explicit_content_filter"`
+	EnableTtsCommand            bool        `json:"enable_tts_command"`
+	DisableGamesTab             bool        `json:"disable_games_tab"`
+	DeveloperMode               bool        `json:"developer_mode"`
+	DetectPlatformAccounts      bool        `json:"detect_platform_accounts"`
+	DefaultGuildsRestricted     bool        `json:"default_guilds_restricted"`
+	CustomStatus                interface{} `json:"custom_status"`
+	ConvertEmoticons            bool        `json:"convert_emoticons"`
+	ContactSyncEnabled          bool        `json:"contact_sync_enabled"`
+	AnimateStickers             int         `json:"animate_stickers"`
+	AnimateEmoji                bool        `json:"animate_emoji"`
+	AllowAccessibilityDetection bool        `json:"allow_accessibility_detection"`
+	AfkTimeout                  int         `json:"afk_timeout"`
 }
 
 // Status type definition
@@ -1060,6 +1079,9 @@ type UserGuildSettingsChannelOverride struct {
 
 // A UserGuildSettings stores data for a users guild settings.
 type UserGuildSettings struct {
+	Version              int                                 `json:"version"`
+	Partial              bool                                `json:"partial"`
+	Entries              []string                            `json:"entries"`
 	SupressEveryone      bool                                `json:"suppress_everyone"`
 	Muted                bool                                `json:"muted"`
 	MobilePush           bool                                `json:"mobile_push"`

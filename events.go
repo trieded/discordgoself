@@ -44,11 +44,11 @@ type Ready struct {
 	Guilds          []*Guild     `json:"guilds"`
 
 	// Undocumented fields
-	Settings          *Settings            `json:"user_settings"`
-	UserGuildSettings []*UserGuildSettings `json:"user_guild_settings"`
-	Relationships     []*Relationship      `json:"relationships"`
-	Presences         []*Presence          `json:"presences"`
-	Notes             map[string]string    `json:"notes"`
+	Settings          *UserSettings      `json:"user_settings"`
+	UserGuildSettings *UserGuildSettings `json:"user_guild_settings"`
+	Relationships     []*Relationship    `json:"relationships"`
+	Presences         []*Presence        `json:"presences"`
+	Notes             map[string]string  `json:"notes"`
 }
 
 // ChannelCreate is the data for a ChannelCreate event.

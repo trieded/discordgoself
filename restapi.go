@@ -293,7 +293,7 @@ func (s *Session) UserUpdate(email, password, username, avatar, newPassword stri
 }
 
 // UserSettings returns the settings for a given user
-func (s *Session) UserSettings() (st *Settings, err error) {
+func (s *Session) UserSettings() (st *UserSettings, err error) {
 
 	body, err := s.RequestWithBucketID("GET", EndpointUserSettings("@me"), nil, EndpointUserSettings(""))
 	if err != nil {
@@ -306,7 +306,7 @@ func (s *Session) UserSettings() (st *Settings, err error) {
 
 // UserUpdateStatus update the user status
 // status   : The new status (Actual valid status are 'online','idle','dnd','invisible')
-func (s *Session) UserUpdateStatus(status Status) (st *Settings, err error) {
+func (s *Session) UserUpdateStatus(status Status) (st *UserSettings, err error) {
 	if status == StatusOffline {
 		err = ErrStatusOffline
 		return
