@@ -36,7 +36,7 @@ var (
 	ErrPruneDaysBounds         = errors.New("the number of days should be more than or equal to 1")
 	ErrGuildNoIcon             = errors.New("guild does not have an icon set")
 	ErrGuildNoSplash           = errors.New("guild does not have a splash set")
-	ErrUnauthorized            = errors.New("HTTP request was unauthorized. This could be because the provided token was not a bot token. Please add \"Bot \" to the start of your token. https://discord.com/developers/docs/reference#authentication-example-bot-token-authorization-header")
+	ErrUnauthorized            = errors.New("HTTP request was unauthorized")
 )
 
 // Request is the same as RequestWithBucketID but the bucket id is the same as the urlStr
@@ -161,10 +161,7 @@ func (s *Session) RequestWithLockedBucket(method, urlStr, contentType string, b 
 
 		response, err = s.RequestWithLockedBucket(method, urlStr, contentType, b, s.Ratelimiter.LockBucketObject(bucket), sequence)
 	case http.StatusUnauthorized:
-		if strings.Index(s.Identify.Token, "Bot ") != 0 {
-			s.log(LogInformational, ErrUnauthorized.Error())
-			err = ErrUnauthorized
-		}
+		err = ErrUnauthorized
 		fallthrough
 	default: // Error condition
 		err = newRestError(req, resp, response)
@@ -1909,28 +1906,6 @@ func (s *Session) Gateway() (gateway string, err error) {
 	// MacOS will fail to connect if we add query params without a trailing slash on the base domain.
 	if !strings.HasSuffix(gateway, "/") {
 		gateway += "/"
-	}
-
-	return
-}
-
-// GatewayBot returns the websocket Gateway address and the recommended number of shards
-func (s *Session) GatewayBot() (st *GatewayBotResponse, err error) {
-
-	response, err := s.RequestWithBucketID("GET", EndpointGatewayBot, nil, EndpointGatewayBot)
-	if err != nil {
-		return
-	}
-
-	err = unmarshal(response, &st)
-	if err != nil {
-		return
-	}
-
-	// Ensure the gateway always has a trailing slash.
-	// MacOS will fail to connect if we add query params without a trailing slash on the base domain.
-	if !strings.HasSuffix(st.URL, "/") {
-		st.URL += "/"
 	}
 
 	return

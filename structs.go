@@ -1092,14 +1092,8 @@ type MessageReaction struct {
 	GuildID   string `json:"guild_id,omitempty"`
 }
 
-// GatewayBotResponse stores the data for the gateway/bot response
-type GatewayBotResponse struct {
-	URL               string             `json:"url"`
-	Shards            int                `json:"shards"`
-	SessionStartLimit SessionInformation `json:"session_start_limit"`
-}
-
 // SessionInformation provides the information for max concurrency sharding
+// TODO seems like something related to bots, which should be removed
 type SessionInformation struct {
 	Total          int `json:"total,omitempty"`
 	Remaining      int `json:"remaining,omitempty"`
