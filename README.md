@@ -1,28 +1,12 @@
 # DiscordGo
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/bwmarrin/discordgo.svg)](https://pkg.go.dev/github.com/bwmarrin/discordgo) [![Go Report Card](https://goreportcard.com/badge/github.com/bwmarrin/discordgo)](https://goreportcard.com/report/github.com/bwmarrin/discordgo) [![Build Status](https://travis-ci.com/bwmarrin/discordgo.svg?branch=master)](https://travis-ci.com/bwmarrin/discordgo) [![Discord Gophers](https://img.shields.io/badge/Discord%20Gophers-%23discordgo-blue.svg)](https://discord.gg/golang) [![Discord API](https://img.shields.io/badge/Discord%20API-%23go_discordgo-blue.svg)](https://discord.com/invite/discord-api)
+[![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo) [![Go Report Card](https://goreportcard.com/badge/github.com/courtier/discordgo)](https://goreportcard.com/report/github.com/courtier/discordgo) [![Build Status](https://travis-ci.com/courtier/discordgo.svg?branch=master)](https://travis-ci.com/courtier/discordgo) [![Discord Gophers](https://img.shields.io/badge/Discord%20Gophers-%23discordgo-blue.svg)](https://discord.gg/golang) [![Discord API](https://img.shields.io/badge/Discord%20API-%23go_discordgo-blue.svg)](https://discord.com/invite/discord-api)
 
-<img align="right" src="https://github.com/bwmarrin/discordgo/blob/master/docs/img/discordgo.png">
+<img align="right" src="https://github.com/courtier/discordgo/blob/master/docs/img/discordgo.png">
 
-DiscordGo is a [Go](https://golang.org/) package that provides low level 
-bindings to the [Discord](https://discord.com/) chat client API. DiscordGo 
-has nearly complete support for all of the Discord API endpoints, websocket
-interface, and voice interface.
+This fork aims to provide Discord client capabilities for use by selfbots.
 
-If you would like to help the DiscordGo package please use 
-[this link](https://discord.com/oauth2/authorize?client_id=173113690092994561&scope=bot)
-to add the official DiscordGo test bot **dgo** to your server. This provides 
-indispensable help to this project.
-
-* See [dgVoice](https://github.com/bwmarrin/dgvoice) package for an example of
-additional voice helper functions and features for DiscordGo.
-
-* See [dca](https://github.com/bwmarrin/dca) for an **experimental** stand alone
-tool that wraps `ffmpeg` to create opus encoded audio appropriate for use with
-Discord (and DiscordGo).
-
-**For help with this package or general Go discussion, please join the [Discord 
-Gophers](https://discord.gg/golang) chat server.**
+**For help/discussion, join the [discord](https://discord.gg/tZJxXar7td).**
 
 ## Getting Started
 
@@ -34,7 +18,7 @@ This assumes you already have a working Go environment, if not please see
 `go get` *will always pull the latest tagged release from the master branch.*
 
 ```sh
-go get github.com/bwmarrin/discordgo
+go get github.com/courtier/discordgo
 ```
 
 ### Usage
@@ -42,7 +26,7 @@ go get github.com/bwmarrin/discordgo
 Import the package into your project.
 
 ```go
-import "github.com/bwmarrin/discordgo"
+import "github.com/courtier/discordgo"
 ```
 
 Construct a new Discord client which can be used to access the variety of 
@@ -64,24 +48,16 @@ The DiscordGo code is fairly well documented at this point and is currently
 the only documentation available.  Both GoDoc and GoWalker (below) present
 that information in a nice format.
 
-- [![Go Reference](https://pkg.go.dev/badge/github.com/bwmarrin/discordgo.svg)](https://pkg.go.dev/github.com/bwmarrin/discordgo)
-- [![Go Walker](https://gowalker.org/api/v1/badge)](https://gowalker.org/github.com/bwmarrin/discordgo) 
+- [![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo)
+- [![Go Walker](https://gowalker.org/api/v1/badge)](https://gowalker.org/github.com/courtier/discordgo) 
 - Hand crafted documentation coming eventually.
 
 
 ## Examples
-
-Below is a list of examples and other projects using DiscordGo.  Please submit 
-an issue if you would like your project added or removed from this list. 
-
-- [DiscordGo Examples](https://github.com/bwmarrin/discordgo/tree/master/examples) - A collection of example programs written with DiscordGo
-- [Awesome DiscordGo](https://github.com/bwmarrin/discordgo/wiki/Awesome-DiscordGo) - A curated list of high quality projects using DiscordGo
+There are currently no examples. Maybe in the examples folder?
 
 ## Troubleshooting
-For help with common problems please reference the 
-[Troubleshooting](https://github.com/bwmarrin/discordgo/wiki/Troubleshooting) 
-section of the project wiki.
-
+Join the [discord](https://discord.gg/tZJxXar7td) and ask away if you have questions,.
 
 ## Contributing
 Contributions are very welcomed, however please follow the below guidelines.
@@ -93,13 +69,3 @@ discussed.
 so please avoid adding enhancements outside of that scope without first 
 discussing it.
 - Create a Pull Request with your changes against the master branch.
-
-
-## List of Discord APIs
-
-See [this chart](https://abal.moe/Discord/Libraries.html) for a feature 
-comparison and list of other Discord API libraries.
-
-## Special Thanks
-
-[Chris Rhodes](https://github.com/iopred) - For the DiscordGo logo and tons of PRs.
