@@ -854,7 +854,7 @@ func (s *State) OnInterface(se *Session, i interface{}) (err error) {
 
 		// Caches member if tracking is enabled.
 		if s.TrackMembers {
-			err = s.MemberAdd(t.Member)
+			s.MemberAdd(t.Member)
 		}
 	case *GuildMemberUpdate:
 		if s.TrackMembers {
@@ -870,7 +870,7 @@ func (s *State) OnInterface(se *Session, i interface{}) (err error) {
 
 		// Removes member from the cache if tracking is enabled.
 		if s.TrackMembers {
-			err = s.MemberRemove(t.Member)
+			s.MemberRemove(t.Member)
 		}
 	case *GuildMembersChunk:
 		if s.TrackMembers {

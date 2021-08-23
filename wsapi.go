@@ -275,6 +275,7 @@ func (s *Session) HeartbeatLatency() time.Duration {
 // heartbeat sends regular heartbeats to Discord so it knows the client
 // is still connected.  If you do not send these heartbeats Discord will
 // disconnect the websocket connection after a few seconds.
+// TODO remove the Msec from var name
 func (s *Session) heartbeat(wsConn *websocket.Conn, listening <-chan interface{}, heartbeatIntervalMsec time.Duration) {
 
 	s.log(LogInformational, "called")
@@ -630,7 +631,7 @@ func (s *Session) ChannelVoiceJoin(gID, cID string, mute, deaf bool) (voice *Voi
 	s.log(LogInformational, "called")
 
 	s.RLock()
-	voice, _ = s.VoiceConnections[gID]
+	voice = s.VoiceConnections[gID]
 	s.RUnlock()
 
 	if voice == nil {
@@ -767,7 +768,7 @@ func (s *Session) identify() error {
 
 	// TODO: This is a temporary block of code to help
 	// maintain backwards compatibility
-	if s.Compress == false {
+	if !s.Compress {
 		s.Identify.Compress = false
 	}
 

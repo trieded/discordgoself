@@ -31,7 +31,7 @@ import (
 // All error constants
 var (
 	ErrJSONUnmarshal           = errors.New("json unmarshal")
-	ErrStatusOffline           = errors.New("You can't set your Status to offline")
+	ErrStatusOffline           = errors.New("you can't set your Status to offline")
 	ErrVerificationLevelBounds = errors.New("VerificationLevel out of bounds, should be between 0 and 3")
 	ErrPruneDaysBounds         = errors.New("the number of days should be more than or equal to 1")
 	ErrGuildNoIcon             = errors.New("guild does not have an icon set")
@@ -143,7 +143,7 @@ func (s *Session) RequestWithLockedBucket(method, urlStr, contentType string, b 
 			s.log(LogInformational, "%s Failed (%s), Retrying...", urlStr, resp.Status)
 			response, err = s.RequestWithLockedBucket(method, urlStr, contentType, b, s.Ratelimiter.LockBucketObject(bucket), sequence+1)
 		} else {
-			err = fmt.Errorf("Exceeded Max retries HTTP %s, %s", resp.Status, response)
+			err = fmt.Errorf("exceeded Max retries HTTP %s, %s", resp.Status, response)
 		}
 	case 429: // TOO MANY REQUESTS - Rate limiting
 		rl := TooManyRequests{}
@@ -643,7 +643,7 @@ func (s *Session) GuildEdit(guildID string, g GuildParams) (st *Guild, err error
 			for _, r := range regions {
 				valid = append(valid, r.ID)
 			}
-			err = fmt.Errorf("Region not a valid region (%q)", valid)
+			err = fmt.Errorf("region not a valid region (%q)", valid)
 			return
 		}
 	}
