@@ -5,6 +5,7 @@
 <img align="right" src="https://github.com/courtier/discordgo/blob/master/docs/img/discordgo.png">
 
 This fork aims to provide Discord client capabilities for use by selfbots.
+Currently receving messages works properly.
 
 **For help/discussion, join the [discord](https://discord.gg/tZJxXar7td).**
 
