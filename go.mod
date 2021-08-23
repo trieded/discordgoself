@@ -1,4 +1,4 @@
-module github.com/courtier/discordgo
+module github.com/courtier/discordgo/v1
 
 go 1.16
 
