@@ -138,7 +138,7 @@ func (s *Session) Open() error {
 		// Send Op 6 Resume Packet
 		p := resumePacket{}
 		p.Op = 6
-		p.Data.Token = s.Token
+		p.Data.Token = s.Identify.Token
 		p.Data.SessionID = s.sessionID
 		p.Data.Sequence = sequence
 
@@ -768,26 +768,8 @@ func (s *Session) identify() error {
 
 	// TODO: This is a temporary block of code to help
 	// maintain backwards compatibility
-	if !s.Compress {
+	if !s.Identify.Compress {
 		s.Identify.Compress = false
-	}
-
-	// TODO: This is a temporary block of code to help
-	// maintain backwards compatibility
-	if s.Token != "" && s.Identify.Token == "" {
-		s.Identify.Token = s.Token
-	}
-
-	// TODO: Below block should be refactored so ShardID and ShardCount
-	// can be deprecated and their usage moved to the Session.Identify
-	// struct
-	if s.ShardCount > 1 {
-
-		if s.ShardID >= s.ShardCount {
-			return ErrWSShardBounds
-		}
-
-		s.Identify.Shard = &[2]int{s.ShardID, s.ShardCount}
 	}
 
 	// Send Identify packet to Discord

@@ -5,157 +5,91 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// This file contains high level helper functions and easy entry points for the
-// entire discordgo package.  These functions are being developed and are very
-// experimental at this point.  They will most likely change so please use the
-// low level functions if that's a problem.
-
-// Package discordgo provides Discord binding for Go
+// Package discordgo provides Discord client bindings for developing
+// "selfbots"/automated user accounts in Go
 package discordgo
 
 import (
 	"errors"
-	"fmt"
 	"net/http"
-	"runtime"
 	"time"
 )
 
-// VERSION of DiscordGo, follows Semantic Versioning. (http://semver.org/)
-const VERSION = "0.23.0"
-
-// ErrMFA will be risen by New when the user has 2FA.
-var ErrMFA = errors.New("account has 2FA enabled")
-
 // New creates a new Discord session and will automate some startup
-// tasks if given enough information to do so.  Currently you can pass zero
-// arguments and it will return an empty Discord session.
-// There are 3 ways to call New:
-//     With a single auth token - All requests will use the token blindly
-//         (just tossing it into the HTTP Authorization header);
-//         no verification of the token will be done and requests may fail.
-//         IF THE TOKEN IS FOR A BOT, IT MUST BE PREFIXED WITH `BOT `
-//         eg: `"Bot <token>"`
-//         IF IT IS AN OAUTH2 ACCESS TOKEN, IT MUST BE PREFIXED WITH `Bearer `
-//         eg: `"Bearer <token>"`
-//     With an email and password - Discord will sign in with the provided
-//         credentials.
-//     With an email, password and auth token - Discord will verify the auth
-//         token, if it is invalid it will sign in with the provided
-//         credentials. This is the Discord recommended way to sign in.
-//
-// NOTE: While email/pass authentication is supported by DiscordGo it is
-// HIGHLY DISCOURAGED by Discord. Please only use email/pass to obtain a token
-// and then use that authentication token for all future connections.
-// Also, doing any form of automation with a user (non Bot) account may result
-// in that account being permanently banned from Discord.
-func New(args ...interface{}) (s *Session, err error) {
+// tasks if given enough information to do so. You must pass it a user account
+// auth token. Do note that this is against Discord TOS and might get your
+// account banned.
+func New(token string) (s *Session, err error) {
+
+	//return empty session
+	if token == "" {
+		return nil, errors.New("empty auth token")
+	}
 
 	// Create an empty Session interface.
 	s = &Session{
 		State:                  NewState(),
 		Ratelimiter:            NewRatelimiter(),
 		StateEnabled:           true,
-		Compress:               true,
 		ShouldReconnectOnError: true,
-		ShardID:                0,
-		ShardCount:             1,
 		MaxRestRetries:         3,
 		Client:                 &http.Client{Timeout: (20 * time.Second)},
-		UserAgent:              "DiscordBot (https://github.com/bwmarrin/discordgo, v" + VERSION + ")",
+		UserAgent:              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
 		sequence:               new(int64),
 		LastHeartbeatAck:       time.Now().UTC(),
 	}
 
-	// Initilize the Identify Package with defaults
+	// Initilize the Identify packet with defaults.
 	// These can be modified prior to calling Open()
-	s.Identify.Compress = true
-	s.Identify.LargeThreshold = 250
-	s.Identify.GuildSubscriptions = true
-	s.Identify.Properties.OS = runtime.GOOS
-	s.Identify.Properties.Browser = "DiscordGo v" + VERSION
-	s.Identify.Intents = MakeIntent(IntentsAllWithoutPrivileged)
+	// I will be using values that I got on my browser,
+	// but you can set to anything else if desired.
 
-	// If no arguments are passed return the empty Session interface.
-	if args == nil {
-		return
+	s.Identify.Token = token
+	s.Identify.Properties = IdentifyProperties{
+		// Windows, Linux etc.
+		OS: "Mac OS X",
+		// Brave, Safari etc.
+		Browser: "Chrome",
+		// Perhaps filled if its a phone like iPhone or Samsung ? idk
+		Device: "",
+		// en-US, de-DE etc.
+		SystemLocale: "en-AU",
+		// Any user agent that matches OS and Browser
+		BrowserUserAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36",
+		BrowserVersion:   "92.0.4515.159",
+		// This is actually NOT my OS version, idk how they get this value,
+		// perhaps its the OS version you signed up to your account with,
+		// but then how does the webssite know to send that in the packet ? idk
+		OSVersion: "10.15.7",
+		// idk
+		Referrer:               "",
+		ReferringDomain:        "",
+		ReferrerCurrent:        "",
+		ReferringDomainCurrent: "",
+		ReleaseChannel:         "stable",
+		ClientBuildNumber:      94294,
+		ClientEventSource:      nil,
 	}
-
-	// Variables used below when parsing func arguments
-	var auth, pass string
-
-	// Parse passed arguments
-	for _, arg := range args {
-
-		switch v := arg.(type) {
-
-		case []string:
-			if len(v) > 3 {
-				err = fmt.Errorf("too many string parameters provided")
-				return
-			}
-
-			// First string is either token or username
-			if len(v) > 0 {
-				auth = v[0]
-			}
-
-			// If second string exists, it must be a password.
-			if len(v) > 1 {
-				pass = v[1]
-			}
-
-			// If third string exists, it must be an auth token.
-			if len(v) > 2 {
-				s.Identify.Token = v[2]
-				s.Token = v[2] // TODO: Remove, Deprecated - Kept for backwards compatibility.
-			}
-
-		case string:
-			// First string must be either auth token or username.
-			// Second string must be a password.
-			// Only 2 input strings are supported.
-
-			if auth == "" {
-				auth = v
-			} else if pass == "" {
-				pass = v
-			} else if s.Token == "" {
-				s.Identify.Token = v
-				s.Token = v // TODO: Remove, Deprecated - Kept for backwards compatibility.
-			} else {
-				err = fmt.Errorf("too many string parameters provided")
-				return
-			}
-
-			//		case Config:
-			// TODO: Parse configuration struct
-
-		default:
-			err = fmt.Errorf("unsupported parameter type provided")
-			return
-		}
+	s.Identify.Presence = IdentifyPresence{
+		// Online etcc.
+		Status: "invisible",
+		// Leave at 0
+		Since: 0,
+		// idk how you would fill this in
+		Activities: nil,
+		// idk what this does
+		AFK: false,
 	}
-
-	// If only one string was provided, assume it is an auth token.
-	// Otherwise get auth token from Discord, if a token was specified
-	// Discord will verify it for free, or log the user in if it is
-	// invalid.
-	if pass == "" {
-		s.Identify.Token = auth
-		s.Token = auth // TODO: Remove, Deprecated - Kept for backwards compatibility.
-	} else {
-		err = s.Login(auth, pass)
-		// TODO: Remove last s.Token part, Deprecated - Kept for backwards compatibility.
-		if err != nil || s.Identify.Token == "" || s.Token == "" {
-			if s.MFA {
-				err = ErrMFA
-			} else {
-				err = fmt.Errorf("unable to fetch discord authentication token. %v", err)
-			}
-			return
-		}
+	s.Identify.Compress = false
+	// No clue, I suggest you do not touch this.
+	s.Identify.ClientState = IdentifyClientState{
+		GuildHashes:              struct{}{},
+		HighestLastMessageID:     "0",
+		ReadStateVersion:         0,
+		UserGuildSettingsVersion: -1,
 	}
-
+	// 61 for Discord client and 125 for browser?
+	// Reddit people report seeing 61, I saw 125 on browser.
+	s.Identify.Capabilities = 125
 	return
 }

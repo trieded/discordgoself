@@ -40,13 +40,13 @@ func init() {
 //////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////// START OF TESTS
 
-// TestNew tests the New() function without any arguments.  This should return
-// a valid Session{} struct and no errors.
-func TestNew(t *testing.T) {
+// TestNewEmpty tests the New() function with an empty string.  This should return
+// an error.
+func TestNewEmpty(t *testing.T) {
 
-	_, err := New()
-	if err != nil {
-		t.Errorf("New() returned error: %+v", err)
+	_, err := New("")
+	if err == nil {
+		t.Error("New() returned no error.")
 	}
 }
 
@@ -80,8 +80,8 @@ func TestNewToken(t *testing.T) {
 		t.Fatal("New(envToken), d is nil, should be Session{}")
 	}
 
-	if d.Token == "" {
-		t.Fatal("New(envToken), d.Token is empty, should be a valid Token.")
+	if d.Identify.Token == "" {
+		t.Fatal("New(envToken), d.Identify.Token is empty, should be a valid Token.")
 	}
 }
 
