@@ -283,13 +283,3 @@ type WebhooksUpdate struct {
 	GuildID   string `json:"guild_id"`
 	ChannelID string `json:"channel_id"`
 }
-
-// InteractionCreate is the data for a InteractionCreate event
-type InteractionCreate struct {
-	*Interaction
-}
-
-// UnmarshalJSON is a helper function to unmarshal Interaction object.
-func (i *InteractionCreate) UnmarshalJSON(b []byte) error {
-	return json.Unmarshal(b, &i.Interaction)
-}
