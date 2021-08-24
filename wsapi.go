@@ -17,7 +17,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"math/rand"
 	"net/http"
 	"sync/atomic"
 	"time"
@@ -280,9 +279,6 @@ func (s *Session) heartbeat(wsConn *websocket.Conn, listening <-chan interface{}
 	if listening == nil || wsConn == nil {
 		return
 	}
-
-	//wait random ms then send the first heartbeat
-	time.Sleep(time.Duration(rand.Float32()) * heartbeatInterval * time.Millisecond)
 
 	var err error
 	ticker := time.NewTicker(heartbeatInterval * time.Millisecond)
