@@ -2,10 +2,10 @@
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo) [![Go Report Card](https://goreportcard.com/badge/github.com/courtier/discordgo)](https://goreportcard.com/report/github.com/courtier/discordgo)
 
-<img align="right" src="https://github.com/courtier/discordgo/blob/master/docs/img/discordgo.png">
-
 This fork aims to provide Discord client capabilities for use by selfbots.
 Currently receving messages works properly.
+
+Further API v9 updates will follow the merger of [this PR] upstream(https://github.com/bwmarrin/discordgo/pull/982).
 
 **For help/discussion, join the [discord](https://discord.gg/tZJxXar7td).**
 
