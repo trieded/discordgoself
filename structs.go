@@ -975,8 +975,16 @@ type ReadState struct {
 type ReadStateEntry struct {
 	MentionCount     int       `json:"mention_count"`
 	LastPinTimestamp time.Time `json:"last_pin_timestamp"`
-	LastMessageID    int       `json:"last_message_id"`
+	LastMessageID    string    `json:"last_message_id"`
 	ID               string    `json:"id"`
+}
+
+// Tutorial stores data about the indicators that show you where to click.
+type Tutorial struct {
+	// Perhaps whether the user skipped all the tutorials.
+	IndicatorsSupressed bool `json:"indicators_suppressed"`
+	// Perhaps the indicators where the user clicked "Next".
+	IndicatorsConfirmed []string `json:"indicators_confirmed"`
 }
 
 // An Ack is used to ack messages

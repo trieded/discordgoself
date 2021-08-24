@@ -4,6 +4,7 @@
 
 This fork aims to provide Discord client capabilities for use by selfbots.
 Currently receving messages works properly.
+Keep in mind that this library is moving fast.
 
 Further API v9 updates will follow the merger of [this PR](https://github.com/bwmarrin/discordgo/pull/982) upstream.
 
@@ -12,8 +13,6 @@ Further API v9 updates will follow the merger of [this PR](https://github.com/bw
 ## Getting Started
 
 ### Installing
-
-**Unfortunately `go get` does not function properly because this is a fork.**
 
 This assumes you already have a working Go environment, if not please see
 [this page](https://golang.org/doc/install) first.
@@ -60,7 +59,7 @@ There are currently no examples. Maybe in the examples folder?
 Join the [discord](https://discord.gg/tZJxXar7td) and ask away if you have questions,.
 
 ## Contributing
-Contributions are very welcomed, however please follow the below guidelines.
+Contributions are welcome, however please follow the below guidelines.
 
 - First open an issue describing the bug or enhancement so it can be
 discussed.  
