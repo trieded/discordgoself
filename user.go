@@ -98,13 +98,13 @@ type User struct {
 	Bio string `json:"bio"`
 
 	// Banner color, probably decimal representation.
-	BannerColor *int `json:"banner_color"`
+	BannerColor *string `json:"banner_color"`
 
 	// Porbably the banner hash.
 	Banner *string `json:"banner"`
 
 	// Accent color, probably decimal representation.
-	AccentColor *int `json:"accent_color"`
+	AccentColor *string `json:"accent_color"`
 }
 
 // String returns a unique identifier of the form username#discriminator
