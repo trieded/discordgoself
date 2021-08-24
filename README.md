@@ -1,11 +1,11 @@
-# DiscordGo
+# Kolizey - DiscordGo selfbot fork
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo) [![Go Report Card](https://goreportcard.com/badge/github.com/courtier/discordgo)](https://goreportcard.com/report/github.com/courtier/discordgo)
+[![Go Reference](https://pkg.go.dev/badge/github.com/courtier/kolizey.svg)](https://pkg.go.dev/github.com/courtier/kolizey) [![Go Report Card](https://goreportcard.com/badge/github.com/courtier/kolizey)](https://goreportcard.com/report/github.com/courtier/kolizey)
 
 This fork aims to provide Discord client capabilities for use by selfbots.
 Currently receving messages works properly.
 
-Further API v9 updates will follow the merger of [this PR] upstream(https://github.com/bwmarrin/discordgo/pull/982).
+Further API v9 updates will follow the merger of [this PR](https://github.com/bwmarrin/discordgo/pull/982) upstream.
 
 **For help/discussion, join the [discord](https://discord.gg/tZJxXar7td).**
 
@@ -21,7 +21,7 @@ This assumes you already have a working Go environment, if not please see
 `go get` *will always pull the latest tagged release from the master branch.*
 
 ```sh
-go get github.com/courtier/discordgo
+go get github.com/courtier/kolizey
 ```
 
 ### Usage
@@ -29,7 +29,7 @@ go get github.com/courtier/discordgo
 Import the package into your project.
 
 ```go
-import "github.com/courtier/discordgo"
+import "github.com/courtier/kolizey"
 ```
 
 Construct a new Discord client which can be used to access the variety of 
@@ -51,7 +51,7 @@ The DiscordGo code is fairly well documented at this point and is currently
 the only documentation available.  Both GoDoc and GoWalker (below) present
 that information in a nice format.
 
-- [![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo)
+- [![Go Reference](https://pkg.go.dev/badge/github.com/courtier/kolizey.svg)](https://pkg.go.dev/github.com/courtier/kolizey)
 
 ## Examples
 There are currently no examples. Maybe in the examples folder?
