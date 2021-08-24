@@ -593,23 +593,23 @@ type Guild struct {
 	StageInstances []*interface{} `json:"stage_instances"`
 
 	// ???
-	GuildHashes []*struct {
-		Version int `json:"version"`
-		Roles   *struct {
-			Omitted bool   `json:"omitted"`
-			Hash    string `json:"hash"`
-		} `json:"roles"`
-		Metadata *struct {
-			Omitted bool   `json:"omitted"`
-			Hash    string `json:"hash"`
-		} `json:"metadata"`
-		Channels *struct {
-			Omitted bool   `json:"omitted"`
-			Hash    string `json:"hash"`
-		} `json:"channels"`
-	} `json:"guild_hashes"`
+	GuildHashes []*GuildHashes `json:"guild_hashes"`
 
 	NSFWLevel NSFWLevel `json:"nsfw_level"`
+}
+
+// GuildHashes holds hashes of various aspects of a guild.
+type GuildHashes struct {
+	Version  int              `json:"version"`
+	Roles    *GuildAspectHash `json:"roles"`
+	Metadata *GuildAspectHash `json:"metadata"`
+	Channels *GuildAspectHash `json:"channels"`
+}
+
+// GuildAspectHash holds the hash of a singular aspect of a guild.
+type GuildAspectHash struct {
+	Omitted bool   `json:"omitted"`
+	Hash    string `json:"hash"`
 }
 
 // Sticker holds data about a guild specific sticker.

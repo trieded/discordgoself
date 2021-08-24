@@ -44,18 +44,29 @@ type Ready struct {
 	Guilds          []*Guild   `json:"guilds"`
 
 	// Undocumented fields
-	Settings *UserSettings `json:"user_settings"`
-	Tutorial *string       `json:"tutorial"`
+	UserSettings *UserSettings `json:"user_settings"`
+	Tutorial     *Tutorial     `json:"tutorial"`
 	// If any action is required like verifying email or phone number,
 	// it will be in here. Ex: REQUIRE_VERIFIED_PHONE
 	RequiredAction string `json:"required_action"`
 	// These User objects will hold only the public aspects.
-	Users             []*User            `json:"users"`
-	UserGuildSettings *UserGuildSettings `json:"user_guild_settings"`
-	Relationships     []*Relationship    `json:"relationships"`
-	Presences         []*Presence        `json:"presences"`
-	Notes             map[string]string  `json:"notes"`
-	MergedMembers     [][]*Member        `json:"merged_members"`
+	Users                 []*User            `json:"users"`
+	UserGuildSettings     *UserGuildSettings `json:"user_guild_settings"`
+	Relationships         []*Relationship    `json:"relationships"`
+	Presences             []*Presence        `json:"presences"`
+	Notes                 map[string]string  `json:"notes"`
+	MergedMembers         [][]*Member        `json:"merged_members"`
+	FriendSuggestionCount int                `json:"friend_suggestion_count"`
+	GeoOrderedRTCRegions  []string           `json:"geo_ordered_rtc_regions"`
+	CountryCode           string             `json:"country_code"`
+	Consents              string             `json:"consents"`
+	AnalyticsToken        string             `json:"analytics_token"`
+	Trace                 []string           `json:"_trace"`
+	// TODO these will throw an error, however I do not have any
+	// means of testing them right now.
+	ConnectedAccounts []string `json:"connected_accounts"`
+	GuildExperiments  []string `json:"guild_experiments"`
+	GuildJoinRequests []string `json:"guild_join_requests"`
 }
 
 // ChannelCreate is the data for a ChannelCreate event.
