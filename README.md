@@ -50,9 +50,6 @@ the only documentation available.  Both GoDoc and GoWalker (below) present
 that information in a nice format.
 
 - [![Go Reference](https://pkg.go.dev/badge/github.com/courtier/discordgo.svg)](https://pkg.go.dev/github.com/courtier/discordgo)
-- [![Go Walker](https://gowalker.org/api/v1/badge)](https://gowalker.org/github.com/courtier/discordgo) 
-- Hand crafted documentation coming eventually.
-
 
 ## Examples
 There are currently no examples. Maybe in the examples folder?

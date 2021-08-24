@@ -64,9 +64,19 @@ type User struct {
 	// be checked by performing a bitwise AND between this int and the flag.
 	PublicFlags UserFlags `json:"public_flags"`
 
+	// The purchased flags on a user's account. Perhaps combination
+	// of what the user has purchased like types of nitro?
+	PurchasedFlags UserFlags `json:"purchased_flags"`
+
+	// The phone number of user's account.
+	Phone *string `json:"phone"`
+
 	// The type of Nitro subscription on a user's account.
 	// Only available when the request is authorized via a Bearer token.
 	PremiumType int `json:"premium_type"`
+
+	// Whether the user has nitro on his account.
+	Premium bool `json:"premium"`
 
 	// Whether the user is an Official Discord System user (part of the urgent message system).
 	System bool `json:"system"`
@@ -74,6 +84,27 @@ type User struct {
 	// The flags on a user's account.
 	// Only available when the request is authorized via a Bearer token.
 	Flags int `json:"flags"`
+
+	// Whether NSFW is allowed.
+	NSFWAllowed bool `json:"nsfw_allowed"`
+
+	// Whether the user is on mobile.
+	Mobile bool `json:"mobile"`
+
+	// Whether the user is on desktop.
+	Desktop bool `json:"desktop"`
+
+	// User's Bio.
+	Bio string `json:"bio"`
+
+	// Banner color, probably decimal representation.
+	BannerColor *int `json:"banner_color"`
+
+	// Porbably the banner hash.
+	Banner *string `json:"banner"`
+
+	// Accent color, probably decimal representation.
+	AccentColor *int `json:"accent_color"`
 }
 
 // String returns a unique identifier of the form username#discriminator

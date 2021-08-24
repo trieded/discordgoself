@@ -401,6 +401,17 @@ const (
 	MfaLevelElevated MfaLevel = 1
 )
 
+// NSFWLevel type definition
+type NSFWLevel int
+
+// Constants for MfaLevel levels from 0 to 1 inclusive
+const (
+	NSFWLevelDefault       NSFWLevel = 0
+	NSFWLevelExplicit      NSFWLevel = 1
+	NSFWLevelSafe          NSFWLevel = 2
+	NSFWLevelAgeRestricted NSFWLevel = 3
+)
+
 // PremiumTier type definition
 type PremiumTier int
 
@@ -563,6 +574,67 @@ type Guild struct {
 
 	// Permissions of our user
 	Permissions int64 `json:"permissions,string"`
+
+	// Scheduled events for the guild. Though I am yet to decipher the
+	// scheduled event struct.
+	GuildScheduledEvents []*GuildScheduledEvent `json:"guild_scheduled_events"`
+
+	// Array of guild specific stcikers.
+	Stickers []*Sticker `json:"stickers"`
+
+	// Whether the guild is lazy??
+	Lazy bool `json:"lazy"`
+
+	// ???
+	ApplicationCommandCcounts map[string]int `json:"application_command_counts"`
+
+	// TODO this should hold array of thread structs, figure out thread
+	// json structure.
+	Threads []*interface{} `json:"threads"`
+
+	// TODO this should hold array of stage structs, figure out stage
+	// json structure.
+	StageInstances []*interface{} `json:"stage_instances"`
+
+	// ???
+	GuildHashes []*struct {
+		Version int `json:"version"`
+		Roles   *struct {
+			Omitted bool   `json:"omitted"`
+			Hash    string `json:"hash"`
+		} `json:"roles"`
+		Metadata *struct {
+			Omitted bool   `json:"omitted"`
+			Hash    string `json:"hash"`
+		} `json:"metadata"`
+		Channels *struct {
+			Omitted bool   `json:"omitted"`
+			Hash    string `json:"hash"`
+		} `json:"channels"`
+	} `json:"guild_hashes"`
+
+	NSFWLevel NSFWLevel `json:"nsfw_level"`
+}
+
+// Sticker holds data about a guild specific sticker.
+type Sticker struct {
+	// Usually 2
+	Type int    `json:"type"`
+	Tags string `json:"tags"`
+	Name string `json:"name"`
+	ID   string `json:"id"`
+	// Which guild the sticker belong to
+	GuildID string `json:"guild_id"`
+	// Usually 1
+	FormatType  int     `json:"format_type"`
+	Description *string `json:"description"`
+	Available   bool    `json:"available"`
+	Asset       string  `json:"asset"`
+}
+
+// GuildScheduledEvent holds information about scheduled events
+// in a guild (presumably).
+type GuildScheduledEvent struct {
 }
 
 // A GuildPreview holds data related to a specific public Discord Guild, even if the user is not in the guild.
@@ -776,6 +848,9 @@ type Member struct {
 	// The underlying user on which the member is based.
 	User *User `json:"user"`
 
+	// The underlying user's ID on which the member is based.
+	UserID string `json:"user_id"`
+
 	// A list of IDs of the roles which are possessed by the member.
 	Roles []string `json:"roles"`
 
@@ -787,6 +862,12 @@ type Member struct {
 
 	// Total permissions of the member in the channel, including overrides, returned when in the interaction object.
 	Permissions int64 `json:"permissions,string"`
+
+	// N/A
+	HoistedRole *string `json:"hoisted_role"`
+
+	// Perhaps the avatar URL?
+	Avatar *string `json:"avatar"`
 }
 
 // Mention creates a member mention
@@ -886,11 +967,20 @@ func (t *TooManyRequests) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-// A ReadState stores data on the read state of channels.
+// ReadState stores an array of ReadStateEntrys and
+// the version of read state implementation.
 type ReadState struct {
-	MentionCount  int    `json:"mention_count"`
-	LastMessageID string `json:"last_message_id"`
-	ID            string `json:"id"`
+	Version int               `json:"version"`
+	Partial bool              `json:"partial"`
+	Entries []*ReadStateEntry `json:"entries"`
+}
+
+// ReadStateEntry holds the read state for a single guild.
+type ReadStateEntry struct {
+	MentionCount     int       `json:"mention_count"`
+	LastPinTimestamp time.Time `json:"last_pin_timestamp"`
+	LastMessageID    int       `json:"last_message_id"`
+	ID               string    `json:"id"`
 }
 
 // An Ack is used to ack messages
@@ -1077,11 +1167,16 @@ type UserGuildSettingsChannelOverride struct {
 	ChannelID            string `json:"channel_id"`
 }
 
-// A UserGuildSettings stores data for a users guild settings.
+// A UserGuildSettings stores array of UserGuildSettingsEntrys.
 type UserGuildSettings struct {
-	Version              int                                 `json:"version"`
-	Partial              bool                                `json:"partial"`
-	Entries              []string                            `json:"entries"`
+	Version int                       `json:"version"`
+	Partial bool                      `json:"partial"`
+	Entries []*UserGuildSettingsEntry `json:"entries"`
+}
+
+// A UserGuildSettingsEntry stores array of information on
+// settings for a guild set by the user.
+type UserGuildSettingsEntry struct {
 	SupressEveryone      bool                                `json:"suppress_everyone"`
 	Muted                bool                                `json:"muted"`
 	MobilePush           bool                                `json:"mobile_push"`
