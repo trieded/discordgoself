@@ -13,6 +13,8 @@ Further API v9 updates will follow the merger of [this PR] upstream(https://gith
 
 ### Installing
 
+**Unfortunately `go get` does not function properly because this is a fork.**
+
 This assumes you already have a working Go environment, if not please see
 [this page](https://golang.org/doc/install) first.
 
