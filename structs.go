@@ -593,7 +593,7 @@ type Guild struct {
 	StageInstances []*interface{} `json:"stage_instances"`
 
 	// ???
-	GuildHashes []*GuildHashes `json:"guild_hashes"`
+	GuildHashes *GuildHashes `json:"guild_hashes"`
 
 	NSFWLevel NSFWLevel `json:"nsfw_level"`
 }
@@ -975,8 +975,9 @@ type ReadState struct {
 type ReadStateEntry struct {
 	MentionCount     int       `json:"mention_count"`
 	LastPinTimestamp time.Time `json:"last_pin_timestamp"`
-	LastMessageID    string    `json:"last_message_id"`
-	ID               string    `json:"id"`
+	// Throws an error if I do not use json.Number!
+	LastMessageID json.Number `json:"last_message_id"`
+	ID            string      `json:"id"`
 }
 
 // Tutorial stores data about the indicators that show you where to click.

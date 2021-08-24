@@ -64,9 +64,12 @@ type Ready struct {
 	Trace                 []string           `json:"_trace"`
 	// TODO these will throw an error, however I do not have any
 	// means of testing them right now.
-	ConnectedAccounts []string `json:"connected_accounts"`
-	GuildExperiments  []string `json:"guild_experiments"`
-	GuildJoinRequests []string `json:"guild_join_requests"`
+	// UNSUPPORTED FOR NOW
+	// ConnectedAccounts []string `json:"connected_accounts"`
+	// UNSUPPORTED FOR NOW
+	// GuildExperiments  []string `json:"guild_experiments"`
+	// UNSUPPORTED FOR NOW
+	// GuildJoinRequests []string `json:"guild_join_requests"`
 }
 
 // ChannelCreate is the data for a ChannelCreate event.
