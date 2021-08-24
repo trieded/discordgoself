@@ -22,7 +22,6 @@ type RateLimiter struct {
 	sync.Mutex
 	global           *int64
 	buckets          map[string]*Bucket
-	globalRateLimit  time.Duration
 	customRateLimits []*customRateLimit
 }
 
@@ -108,7 +107,6 @@ type Bucket struct {
 	sync.Mutex
 	Key       string
 	Remaining int
-	limit     int
 	reset     time.Time
 	global    *int64
 
