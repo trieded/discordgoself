@@ -59,7 +59,7 @@ type Ready struct {
 	FriendSuggestionCount int                `json:"friend_suggestion_count"`
 	GeoOrderedRTCRegions  []string           `json:"geo_ordered_rtc_regions"`
 	CountryCode           string             `json:"country_code"`
-	Consents              string             `json:"consents"`
+	Consents              *Consents          `json:"consents"`
 	AnalyticsToken        string             `json:"analytics_token"`
 	Trace                 []string           `json:"_trace"`
 	// TODO these will throw an error, however I do not have any

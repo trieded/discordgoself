@@ -988,6 +988,16 @@ type Tutorial struct {
 	IndicatorsConfirmed []string `json:"indicators_confirmed"`
 }
 
+// Stores information about various types of consents.
+type Consents struct {
+	Personalization *Personalization `json:"personalization"`
+}
+
+// Stores information about personalization consent.
+type Personalization struct {
+	Consented bool `json:"consented"`
+}
+
 // An Ack is used to ack messages
 type Ack struct {
 	Token string `json:"token"`
