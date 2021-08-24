@@ -104,7 +104,7 @@ type User struct {
 	Banner *string `json:"banner"`
 
 	// Accent color, probably decimal representation.
-	AccentColor *string `json:"accent_color"`
+	AccentColor *int `json:"accent_color"`
 }
 
 // String returns a unique identifier of the form username#discriminator
