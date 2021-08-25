@@ -13,13 +13,14 @@ package discordgo
 import (
 	"bytes"
 	"compress/zlib"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"sync/atomic"
 	"time"
+
+	"github.com/goccy/go-json"
 
 	"github.com/gorilla/websocket"
 )
@@ -578,6 +579,9 @@ func (s *Session) onEvent(messageType int, message []byte) (*Event, error) {
 		e.Struct = eh.New()
 
 		// Attempt to unmarshal our event.
+		// TODO unmarshaling json here is not ideal for performance.
+		// Possibly let users choose whether to handle json for
+		// each handle. like AddHandle(handler, unmarshalJSON)
 		if err = json.Unmarshal(e.RawData, e.Struct); err != nil {
 			s.log(LogError, "error unmarshalling %s event, %s", e.Type, err)
 		}

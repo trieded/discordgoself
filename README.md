@@ -10,6 +10,12 @@ Further API v9 updates will follow the merger of [this PR](https://github.com/bw
 
 **For help/discussion, join the [discord](https://discord.gg/tZJxXar7td).**
 
+## Goals
+
+- Performant & low level code
+    - This is being tested live in my nitro sniper, thus I need the library to be very fast. So this is a priority.
+- Matching functionality with the Discord client, and the absence of Bot-only functionality.
+
 ## Getting Started
 
 ### Installing

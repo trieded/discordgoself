@@ -10,9 +10,10 @@
 package discordgo
 
 import (
-	"encoding/json"
 	"net/http"
 	"time"
+
+	"github.com/goccy/go-json"
 )
 
 // Timestamp stores a timestamp, as sent by the Discord API.

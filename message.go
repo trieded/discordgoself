@@ -10,10 +10,11 @@
 package discordgo
 
 import (
-	"encoding/json"
 	"io"
 	"regexp"
 	"strings"
+
+	"github.com/goccy/go-json"
 )
 
 // MessageType is the type of Message

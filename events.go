@@ -1,7 +1,7 @@
 package discordgo
 
 import (
-	"encoding/json"
+	"github.com/goccy/go-json"
 )
 
 // This file contains all the possible structs that can be

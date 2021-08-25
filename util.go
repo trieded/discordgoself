@@ -2,13 +2,14 @@ package discordgo
 
 import (
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net/textproto"
 	"strconv"
 	"time"
+
+	"github.com/goccy/go-json"
 )
 
 // SnowflakeTimestamp returns the creation time of a Snowflake ID relative to the creation of Discord.
