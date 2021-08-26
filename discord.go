@@ -68,8 +68,7 @@ func New(token string) (s *Session, err error) {
 		// This is actually NOT my OS version, idk how they get this value,
 		// perhaps its the OS version you signed up to your account with,
 		// but then how does the webssite know to send that in the packet ? idk
-		OSVersion: "10.15.7",
-		// idk
+		OSVersion:              "10.15.7",
 		Referrer:               "",
 		ReferringDomain:        "",
 		ReferrerCurrent:        "",
@@ -79,17 +78,12 @@ func New(token string) (s *Session, err error) {
 		ClientEventSource:      nil,
 	}
 	s.Identify.Presence = IdentifyPresence{
-		// Online etcc.
-		Status: "invisible",
-		// Leave at 0
-		Since: 0,
-		// idk how you would fill this in
+		Status:     "invisible",
+		Since:      0,
 		Activities: nil,
-		// idk what this does
-		AFK: false,
+		AFK:        false,
 	}
 	s.Identify.Compress = false
-	// No clue, I suggest you do not touch this.
 	s.Identify.ClientState = IdentifyClientState{
 		GuildHashes:              struct{}{},
 		HighestLastMessageID:     "0",
