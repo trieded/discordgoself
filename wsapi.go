@@ -476,6 +476,7 @@ func (s *Session) requestGuildMembers(data requestGuildMembersData) (err error) 
 //
 // If you use the AddHandler() function to register a handler for the
 // "OnEvent" event then all events will be passed to that handler.
+// TODO improve performance here
 func (s *Session) onEvent(messageType int, message []byte) (*Event, error) {
 
 	var err error
@@ -507,6 +508,28 @@ func (s *Session) onEvent(messageType int, message []byte) (*Event, error) {
 	if err = decoder.Decode(&e); err != nil {
 		s.log(LogError, "error decoding websocket message, %s", err)
 		return e, err
+	}
+
+	// Map event to registered event handlers and pass it along to any registered handlers.
+	if eh, ok := registeredInterfaceProviders[e.Type]; ok {
+		e.Struct = eh.New()
+
+		// Attempt to unmarshal our event.
+		// TODO unmarshaling json here is not ideal for performance.
+		// Possibly let users choose whether to handle json for
+		// each handle. like AddHandle(handler, unmarshalJSON)
+		if err = json.Unmarshal(e.RawData, e.Struct); err != nil {
+			s.log(LogError, "error unmarshalling %s event, %s", e.Type, err)
+		}
+
+		// Send event to any registered event handlers for it's type.
+		// Because the above doesn't cancel this, in case of an error
+		// the struct could be partially populated or at default values.
+		// However, most errors are due to a single field and I feel
+		// it's better to pass along what we received than nothing at all.
+		// TODO: Think about that decision :)
+		// Either way, READY events must fire, even with errors.
+		s.handleEvent(e.Type, e.Struct)
 	}
 
 	s.log(LogDebug, "Op: %d, Seq: %d, Type: %s, Data: %s\n\n", e.Operation, e.Sequence, e.Type, string(e.RawData))
@@ -563,37 +586,15 @@ func (s *Session) onEvent(messageType int, message []byte) (*Event, error) {
 		return e, nil
 	}
 
+	// Store the message sequence
+	atomic.StoreInt64(s.sequence, e.Sequence)
+
 	// Do not try to Dispatch a non-Dispatch Message
 	if e.Operation != 0 {
 		// But we probably should be doing something with them.
 		// TEMP
 		s.log(LogWarning, "unknown Op: %d, Seq: %d, Type: %s, Data: %s, message: %s", e.Operation, e.Sequence, e.Type, string(e.RawData), string(message))
 		return e, nil
-	}
-
-	// Store the message sequence
-	atomic.StoreInt64(s.sequence, e.Sequence)
-
-	// Map event to registered event handlers and pass it along to any registered handlers.
-	if eh, ok := registeredInterfaceProviders[e.Type]; ok {
-		e.Struct = eh.New()
-
-		// Attempt to unmarshal our event.
-		// TODO unmarshaling json here is not ideal for performance.
-		// Possibly let users choose whether to handle json for
-		// each handle. like AddHandle(handler, unmarshalJSON)
-		if err = json.Unmarshal(e.RawData, e.Struct); err != nil {
-			s.log(LogError, "error unmarshalling %s event, %s", e.Type, err)
-		}
-
-		// Send event to any registered event handlers for it's type.
-		// Because the above doesn't cancel this, in case of an error
-		// the struct could be partially populated or at default values.
-		// However, most errors are due to a single field and I feel
-		// it's better to pass along what we received than nothing at all.
-		// TODO: Think about that decision :)
-		// Either way, READY events must fire, even with errors.
-		s.handleEvent(e.Type, e.Struct)
 	} else {
 		s.log(LogWarning, "unknown event: Op: %d, Seq: %d, Type: %s, Data: %s", e.Operation, e.Sequence, e.Type, string(e.RawData))
 	}
