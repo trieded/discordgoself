@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"github.com/goccy/go-json"
-
 	"github.com/gorilla/websocket"
 )
 
@@ -67,7 +66,7 @@ func (s *Session) Open() error {
 		}
 
 		// Add the version and encoding to the URL
-		s.gateway = s.gateway + "?v=" + APIVersion + "&encoding=json"
+		s.gateway = s.gateway + "?v=" + APIVersion + "&encoding=etf"
 	}
 
 	// Connect to the Gateway

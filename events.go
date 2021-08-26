@@ -61,7 +61,6 @@ type Ready struct {
 	CountryCode           string             `json:"country_code"`
 	Consents              *Consents          `json:"consents"`
 	AnalyticsToken        string             `json:"analytics_token"`
-	Trace                 []string           `json:"_trace"`
 	// TODO these will throw an error, however I do not have any
 	// means of testing them right now.
 	// UNSUPPORTED FOR NOW
