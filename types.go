@@ -7,7 +7,7 @@
 
 // This file contains custom types, currently only a timestamp wrapper.
 
-package discordgo
+package kolizey
 
 import (
 	"net/http"

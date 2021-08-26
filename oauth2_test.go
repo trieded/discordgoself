@@ -1,4 +1,4 @@
-package discordgo_test
+package kolizey_test
 
 import (
 	"log"

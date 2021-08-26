@@ -1,4 +1,4 @@
-package discordgo
+package kolizey
 
 import (
 	"github.com/goccy/go-json"

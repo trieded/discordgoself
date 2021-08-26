@@ -7,7 +7,7 @@
 
 // This file contains functions related to Discord OAuth2 endpoints
 
-package discordgo
+package kolizey
 
 // ------------------------------------------------------------------------------------------------
 // Code specific to Discord OAuth2 Applications

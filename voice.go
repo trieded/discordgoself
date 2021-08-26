@@ -7,7 +7,7 @@
 
 // This file contains code related to Discord voice suppport
 
-package discordgo
+package kolizey
 
 import (
 	"encoding/binary"

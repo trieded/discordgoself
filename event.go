@@ -1,4 +1,4 @@
-package discordgo
+package kolizey
 
 // EventHandler is an interface for Discord events.
 type EventHandler interface {

@@ -5,9 +5,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package discordgo provides Discord client bindings for developing
+// package kolizey provides Discord client bindings for developing
 // "selfbots"/automated user accounts in Go
-package discordgo
+package kolizey
 
 import (
 	"errors"
