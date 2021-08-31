@@ -26,7 +26,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // All error constants

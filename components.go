@@ -1,7 +1,7 @@
 package kolizey
 
 import (
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // ComponentType is type of component.

@@ -13,7 +13,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // Timestamp stores a timestamp, as sent by the Discord API.

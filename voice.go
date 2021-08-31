@@ -18,7 +18,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 
 	"github.com/gorilla/websocket"
 	"golang.org/x/crypto/nacl/secretbox"

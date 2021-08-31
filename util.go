@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // SnowflakeTimestamp returns the creation time of a Snowflake ID relative to the creation of Discord.

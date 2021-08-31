@@ -14,7 +14,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // MessageType is the type of Message

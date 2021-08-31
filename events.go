@@ -1,7 +1,7 @@
 package kolizey
 
 import (
-	"github.com/goccy/go-json"
+	"encoding/json"
 )
 
 // This file contains all the possible structs that can be
