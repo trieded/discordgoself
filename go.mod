@@ -1,4 +1,4 @@
-module github.com/courtier/kolizey
+module github.com/trieded/discordgoself
 
 go 1.16
 
